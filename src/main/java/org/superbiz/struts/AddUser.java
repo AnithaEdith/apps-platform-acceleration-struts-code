@@ -17,16 +17,23 @@
 */
 package org.superbiz.struts;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import java.util.Properties;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AddUser {
 
+    private Logger logger= LoggerFactory.getLogger("AddUser");
     private int id;
     private String firstName;
     private String lastName;
     private String errorMessage;
+    private UserService userService;
+
+    AddUser(UserService userService){
+        this.userService=userService;
+    }
 
     public String getFirstName() {
         return firstName;
@@ -60,16 +67,20 @@ public class AddUser {
         this.id = id;
     }
 
-    public String execute() {
 
+    public String execute() {
+        logger.info("insider AddUser execute");
         try {
-            UserService service = null;
+           /* UserService service = null;
             Properties props = new Properties();
             props.put(Context.INITIAL_CONTEXT_FACTORY,
                 "org.apache.openejb.core.LocalInitialContextFactory");
             Context ctx = new InitialContext(props);
             service = (UserService) ctx.lookup("UserServiceImplLocal");
-            service.add(new User(id, firstName, lastName));
+
+            service.add(new User(id, firstName, lastName));*/
+             userService.add(new User(id, firstName, lastName));
+            logger.info("outside AddUser execute");
         } catch (Exception e) {
             this.errorMessage = e.getMessage();
             return "failure";

@@ -17,22 +17,27 @@
 */
 package org.superbiz.struts;
 
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Stateless
+//@Stateless
+@Repository
 public class UserServiceImpl implements UserService {
 
-    @PersistenceContext(unitName = "user")
+    @PersistenceContext
     private EntityManager manager;
 
+    @Transactional
     public void add(User user) {
         manager.persist(user);
     }
 
-    public User find(int id) {
+    public User find(long id) {
         return manager.find(User.class, id);
     }
 

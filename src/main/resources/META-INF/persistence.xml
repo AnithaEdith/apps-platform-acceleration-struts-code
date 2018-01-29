@@ -22,12 +22,15 @@
              version="1.0">
   <!-- Uses HSQLDB which comes bundles with OpenEJB -->
   <persistence-unit name="user">
-    <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
+  <!--  <provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>-->
     <jta-data-source>java:openejb/Resource/My DataSource</jta-data-source>
     <non-jta-data-source>java:openejb/Resource/My Unmanaged DataSource</non-jta-data-source>
     <class>org.superbiz.struts.User</class>
     <properties>
       <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+      <property name="eclipselink.target-database" value="MySQL" />
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
     </properties>
   </persistence-unit>
 

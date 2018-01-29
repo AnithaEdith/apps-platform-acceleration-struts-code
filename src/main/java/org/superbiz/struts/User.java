@@ -23,12 +23,13 @@ import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "USER")
+//@Table(name = "USER")
 public class User implements Serializable {
 
     private long id;
     private String firstName;
     private String lastName;
+
 
     public User(long id, String firstName, String lastName) {
         super();
